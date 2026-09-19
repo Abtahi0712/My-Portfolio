@@ -1,12 +1,5 @@
 import { Reveal, Section } from "@/components/ui/Section";
-import { contact, person } from "@/content/site";
-
-/** Small, factual counters — every figure is taken from the CV or a README. */
-const marks = [
-  { value: "98,666", label: "orders modelled end-to-end in the Olist pipeline" },
-  { value: "9", label: "LLMs benchmarked in the Bangla summarization thesis" },
-  { value: "55+", label: "problems solved on LeetCode" },
-];
+import { aboutMarks, contact, person } from "@/content/site";
 
 export default function About() {
   return (
@@ -22,16 +15,21 @@ export default function About() {
     >
       <div className="grid gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-16">
         <Reveal>
-          <p className="text-[1.05rem] leading-[1.75] text-paper/90 sm:text-[1.12rem]">
-            {person.summary}
-          </p>
+          {person.about.map((paragraph, i) => (
+            <p
+              key={paragraph.slice(0, 24)}
+              className={
+                i === 0
+                  ? "text-[1.05rem] leading-[1.75] text-paper/90 sm:text-[1.12rem]"
+                  : "mt-5 text-[1.0125rem] leading-[1.75] text-lavender-dim"
+              }
+            >
+              {paragraph}
+            </p>
+          ))}
 
-          <p className="mt-6 text-[1.0125rem] leading-[1.75] text-lavender-dim">
-            The through-line across the work below is the same one every time:
-            start from the business question, get the data honest before
-            trusting it, and stop only once the numbers say something a person
-            can act on. That&apos;s as true of a nine-page Power BI model as it
-            is of a multi-task U-Net.
+          <p className="mt-6 border-l-2 border-line pl-5 text-[1.0125rem] leading-[1.75] text-lavender-dim">
+            {person.throughLine}
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-[0.75rem] text-lavender-dim">
@@ -50,13 +48,19 @@ export default function About() {
         </Reveal>
 
         <Reveal delay={0.12}>
-          <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line">
-            {marks.map((mark) => (
+          {/* The figures column was previously unlabelled, which left it
+              reading as an anonymous stack of numbers. */}
+          <h3 className="font-mono text-[0.68rem] uppercase tracking-[0.24em] text-lavender-dim">
+            By the numbers
+          </h3>
+
+          <ul className="mt-5 grid gap-px overflow-hidden rounded-2xl border border-line bg-line">
+            {aboutMarks.map((mark) => (
               <li
                 key={mark.value}
-                className="bg-[color-mix(in_oklab,var(--color-surface)_82%,transparent)] px-6 py-6 backdrop-blur-md transition-colors duration-500 ease-[var(--ease-glow)] hover:bg-surface-2"
+                className="bg-[color-mix(in_oklab,var(--color-surface)_82%,transparent)] px-6 py-5 backdrop-blur-md transition-colors duration-500 ease-[var(--ease-glow)] hover:bg-surface-2"
               >
-                <p className="font-display text-[2.1rem] font-semibold leading-none tracking-tight text-glow-gradient">
+                <p className="text-glow-gradient font-display text-[clamp(1.5rem,4.2vw,1.95rem)] font-semibold leading-none tracking-tight">
                   {mark.value}
                 </p>
                 <p className="mt-2.5 text-[0.86rem] leading-snug text-lavender-dim">

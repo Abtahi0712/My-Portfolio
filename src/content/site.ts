@@ -16,14 +16,66 @@ export const person = {
   name: "Abtahi Bin Jahangir Chowdhury",
   shortName: "Abtahi",
   role: "Data Analyst · ML Engineer",
-  /** Verbatim from the CV summary. */
+  /**
+   * Verbatim from the CV. Used for search-engine structured data (JSON-LD),
+   * where the canonical wording belongs — NOT rendered on the page, because
+   * `positioning` below already says the same thing in the hero.
+   */
   summary:
     "Computer Science graduate and aspiring Data Analyst who turns raw, messy data into business-ready insight — from cleaning in PostgreSQL, through SQL and Python analysis, to Power BI dashboards that answer a real business question. Also builds and evaluates AI/ML systems.",
-  /** Condensed hero line, drawn from the same summary. */
+
+  /** Condensed hero line, drawn from the summary above. */
   positioning:
     "I turn raw, messy data into business-ready insight — from PostgreSQL cleaning through SQL and Python analysis to Power BI dashboards that answer a real business question.",
+
+  /**
+   * About section — a paraphrase, deliberately NOT a repeat of `positioning`.
+   * A visitor reaches this roughly ten seconds after reading the hero, so it
+   * adds specifics (where the work starts and ends, what sits alongside it)
+   * rather than restating the same sentence in the same order.
+   * Every fact here comes from the CV or a project README.
+   */
+  about: [
+    "I'm a Computer Science graduate from BRAC University who ended up on the analyst side of the stack. Most of my work starts in PostgreSQL — profiling a raw table, deciding what actually counts as a genuine record, and writing down why — and ends in a Power BI model someone can read without me in the room.",
+    "The AI/ML work runs alongside it rather than apart from it: a multi-task U-Net that segments and classifies breast ultrasound scans in one pass, and an undergraduate thesis benchmarking nine LLMs on Bangla summarization.",
+  ],
+
+  /**
+   * The common thread. An earlier draft claimed the same "start from the
+   * business question" framing covered the U-Net too — it doesn't; a tumour
+   * segmentation model answers a clinical question, not a commercial one.
+   * This version names what genuinely carries across all three domains: the
+   * sequence, not the subject.
+   */
+  throughLine:
+    "What carries across all of it is the order of operations, not the domain: pin down the question precisely, get the data honest before trusting it, and let the answer stand only as far as the evidence actually reaches. The question itself changes a lot — which rental segments are worth signing, whether a tumour is benign or malignant, whether a metric is even measuring what it claims to — but that sequence doesn't.",
+
   location: "Dhaka, Bangladesh",
 } as const;
+
+/**
+ * Figures shown beside the About copy. Every number is traceable to the CV or
+ * a project README — nothing here is rounded up or estimated.
+ */
+export const aboutMarks = [
+  {
+    value: "98,666",
+    label: "orders modelled end-to-end in the Olist Power BI pipeline",
+  },
+  {
+    value: "30,234 → 5,280",
+    label:
+      "raw NYC Airbnb listings cleaned down to genuine short-term rentals",
+  },
+  {
+    value: "9",
+    label: "LLMs benchmarked in the Bangla summarization thesis",
+  },
+  {
+    value: "55+",
+    label: "problems solved on LeetCode",
+  },
+] as const;
 
 export const contact = {
   email: "abtahichowdhury2000@gmail.com",
