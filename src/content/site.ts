@@ -36,7 +36,7 @@ export const person = {
    * Every fact here comes from the CV or a project README.
    */
   about: [
-    "I'm a Computer Science graduate from BRAC University who ended up on the analyst side of the stack. Most of my work starts in PostgreSQL profiling a raw table, deciding what actually counts as a genuine record, and then analysing the data using SQL and Python — and ends in a Power BI model someone can read without me in the room.",
+    "I'm a Computer Science graduate from BRAC University who ended up on the analyst side of the stack. Most of my work starts in PostgreSQL profiling a raw table, deciding what actually counts as a genuine record, and then answering business questions by analysing the data using SQL and Python — and ends in a Power BI model someone can read without me in the room.",
     "The AI/ML work runs alongside it rather than apart from it: a multi-task U-Net that segments and classifies breast ultrasound scans in one pass, and an undergraduate thesis benchmarking nine LLMs on Bangla summarization.",
   ],
 
