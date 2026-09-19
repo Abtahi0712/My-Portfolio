@@ -1,0 +1,363 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   NEON NOIR VIOLET — design tokens
+   Every colour, font, easing and duration used anywhere on this site is
+   declared here and consumed as a Tailwind token. No component hardcodes a
+   colour value.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Colour ───────────────────────────────────────────────────────────── */
+  --color-void: #06030b; /* page background, near-black eggplant  */
+  --color-surface: #120a1e; /* card / panel background               */
+  --color-surface-2: #1c1030; /* elevated panel, hover surface         */
+  --color-line: #2e1d46; /* borders, dividers                     */
+  --color-violet: #9b30ff; /* primary accent — glow, links, CTAs    */
+  /* Derived from --violet for TEXT only. The specified #9b30ff scores just
+     3.65–4.15:1 against the three dark surfaces, under the 4.5:1 WCAG AA
+     floor for body-size text, so small violet labels were failing contrast.
+     This is #9b30ff lifted 25% toward --paper: same hue, same family,
+     5.1–5.8:1 on every surface. --violet itself is untouched and still
+     drives glows, borders, gradients and filled CTAs, where contrast
+     ratios do not apply.                                                 */
+  --color-violet-text: #b160fe;
+  --color-magenta: #e34fff; /* secondary accent — highlights         */
+  --color-lavender-dim: #9385a8; /* muted / secondary text                */
+  --color-paper: #f3eef9; /* primary text, warm off-white          */
+  --color-skin-amber: #e8b98a; /* rare warm accent, used sparingly      */
+
+  /* ── Type ─────────────────────────────────────────────────────────────── */
+  --font-display: var(--font-display), "Sora", "Segoe UI", system-ui, sans-serif;
+  --font-body: var(--font-body), "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
+
+  /* ── Motion — slow, deliberate, cinematic ─────────────────────────────── */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drift: cubic-bezier(0.33, 0, 0.2, 1);
+  --ease-glow: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Layout ───────────────────────────────────────────────────────────── */
+  --spacing-gutter: 1rem; /* 16px minimum side gutter on mobile    */
+}
+
+/* Non-utility tokens (not meant to generate Tailwind classes) */
+:root {
+  --nav-h: 4.5rem;
+  --glow-violet: 0 0 40px -8px color-mix(in oklab, var(--color-violet) 55%, transparent);
+  --glow-magenta: 0 0 56px -10px color-mix(in oklab, var(--color-magenta) 45%, transparent);
+  color-scheme: dark;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Anchor targets clear the sticky nav */
+  scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+  background-color: var(--color-void);
+  /* Never allow a stray transform to create a sideways scrollbar */
+  overflow-x: hidden;
+}
+
+body {
+  /* Deliberately transparent. The void colour lives on <html>, where it
+     propagates to the canvas. If <body> painted its own opaque background it
+     would sit *above* the negative-z-index Backdrop layer in the paint order
+     and hide the page's entire glow field. */
+  background-color: transparent;
+  color: var(--color-paper);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+  font-weight: 600;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-violet) 45%, transparent);
+  color: var(--color-paper);
+}
+
+/* ── Focus: always visible, always on-theme ──────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-magenta);
+  outline-offset: 3px;
+  /* No border-radius here: this rule is unlayered and would otherwise beat
+     Tailwind's `rounded-full`, squaring off every pill the moment it takes
+     focus. Chromium already follows the element's own radius. */
+}
+/* Don't double up on elements that draw their own ring */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line);
+    border-radius: 99px;
+    border: 2px solid var(--color-void);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--color-violet) 60%, var(--color-line));
+  }
+}
+html {
+  scrollbar-color: var(--color-line) var(--color-void);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPONENT PRIMITIVES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@utility shell {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: var(--spacing-gutter);
+}
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 2rem;
+  }
+}
+@media (min-width: 1280px) {
+  .shell {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Uppercase mono eyebrow above section headings */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--color-magenta);
+}
+
+/* Glass panel — used by nav, cards, the research spotlight */
+@utility glass {
+  background: color-mix(in oklab, var(--color-surface) 72%, transparent);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--color-line);
+}
+
+/* Violet→magenta text gradient for key display words */
+@utility text-glow-gradient {
+  background: linear-gradient(
+    100deg,
+    var(--color-paper) 0%,
+    var(--color-paper) 30%,
+    var(--color-magenta) 72%,
+    var(--color-violet) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Hairline rule that fades out at both ends */
+@utility rule-fade {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-line) 15%,
+    var(--color-line) 85%,
+    transparent
+  );
+}
+
+/* ── Film grain + vignette, hero foreground layer ────────────────────────── */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+}
+
+.vignette {
+  background:
+    radial-gradient(
+      ellipse 78% 62% at 50% 42%,
+      transparent 38%,
+      color-mix(in oklab, var(--color-void) 72%, transparent) 88%,
+      var(--color-void) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 62%,
+      color-mix(in oklab, var(--color-void) 85%, transparent) 88%,
+      var(--color-void) 100%
+    );
+}
+
+/* Character cutout: violet rim-light + bottom fade so the crop never reads
+   as a hard edge against the page. */
+.character-glow {
+  filter: drop-shadow(0 0 28px color-mix(in oklab, var(--color-violet) 58%, transparent))
+    drop-shadow(0 0 72px color-mix(in oklab, var(--color-magenta) 26%, transparent))
+    drop-shadow(0 12px 40px color-mix(in oklab, var(--color-void) 90%, transparent));
+}
+
+.character-fade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 99%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 99%);
+}
+
+/* ── Card tilt ───────────────────────────────────────────────────────────── */
+.tilt-root {
+  perspective: 1100px;
+}
+.tilt-face {
+  transform-style: preserve-3d;
+  transition:
+    transform 500ms var(--ease-cinematic),
+    border-color 400ms var(--ease-glow),
+    box-shadow 400ms var(--ease-glow),
+    background-color 400ms var(--ease-glow);
+  will-change: transform;
+}
+
+/* Cursor-following sheen inside a tilt card */
+.tilt-sheen {
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 0%),
+    color-mix(in oklab, var(--color-violet) 26%, transparent),
+    transparent 62%
+  );
+}
+
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes idle-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0) rotate(0.35deg);
+  }
+}
+.animate-idle-drift {
+  animation: idle-drift 11s var(--ease-drift) infinite;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 4.5s var(--ease-glow) infinite;
+}
+
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-40%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(150%);
+    opacity: 0;
+  }
+}
+.animate-scroll-hint {
+  animation: scroll-hint 2.6s var(--ease-drift) infinite;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   REDUCED MOTION
+   Kills every scroll-driven transform, parallax, drift and looping animation.
+   The particle canvas is additionally never mounted (see HeroScene.tsx).
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .tilt-face {
+    transform: none !important;
+  }
+
+  .animate-idle-drift,
+  .animate-scroll-hint,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Transitions ─────────────────────────────────────────────────────────────
+   Deliberately NOT `transition-all`. Animating every property means the focus
+   outline animates too, so a keyboard user would get no visible ring for the
+   first half-second after focus lands. This transitions exactly the
+   decorative properties and leaves `outline-*` instant. */
+@utility transition-surface {
+  transition-property: color, background-color, border-color, box-shadow,
+    transform, opacity, backdrop-filter;
+}
+
+/* Belt and braces: whatever a component declares, the ring never animates. */
+:focus-visible {
+  transition-property: none;
+}
