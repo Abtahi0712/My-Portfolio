@@ -22,11 +22,11 @@ export const person = {
    * `positioning` below already says the same thing in the hero.
    */
   summary:
-    "Computer Science graduate and aspiring Data Analyst who turns raw, messy data into business-ready insight — from cleaning in PostgreSQL, through SQL and Python analysis, to Power BI dashboards that answer a real business question. Also builds and evaluates AI/ML systems.",
+    "Data Analyst and Machine Learning Engineer with a B.Sc. in Computer Science. Turns raw, messy data into business-ready insight through Python and PostgreSQL cleaning, SQL analysis and reconciliation, and Power BI and Retool dashboards. Also builds and evaluates ML and deep learning models, from a multi-task U-Net to benchmarking 9 LLMs, in TensorFlow and PyTorch.",
 
   /** Condensed hero line, drawn from the summary above. */
   positioning:
-    "I turn raw, messy data into business-ready insight — from PostgreSQL cleaning through SQL and Python analysis to Power BI dashboards that answer a real business question.",
+    "I turn raw, messy data into business-ready insight — Python and PostgreSQL cleaning, SQL analysis and reconciliation, and Power BI and Retool dashboards that answer a real business question.",
 
   /**
    * About section — a paraphrase, deliberately NOT a repeat of `positioning`.
@@ -36,7 +36,7 @@ export const person = {
    * Every fact here comes from the CV or a project README.
    */
   about: [
-    "I'm a Computer Science graduate from BRAC University who ended up on the analyst side of the stack. Most of my work starts in PostgreSQL profiling a raw table, deciding what actually counts as a genuine record, and then answering business questions by analysing the data using SQL and Python — and ends in a Power BI model someone can read without me in the room.",
+    "I'm a Computer Science graduate from BRAC University who ended up on the analyst side of the stack. Most of my work starts in Python or PostgreSQL profiling a raw table, deciding what actually counts as a genuine record, and then answering business questions by analysing the data using SQL and Python — and ends in a Power BI or Retool dashboard someone can read without me in the room.",
     "The AI/ML work runs alongside it rather than apart from it: a multi-task U-Net that segments and classifies breast ultrasound scans in one pass, and an undergraduate thesis benchmarking nine LLMs on Bangla summarization.",
   ],
 
@@ -48,7 +48,7 @@ export const person = {
    * sequence, not the subject.
    */
   throughLine:
-    "What carries across all of it is the order of operations, not the domain: pin down the question precisely, get the data honest before trusting it, and let the answer stand only as far as the evidence actually reaches. The question itself changes a lot which rental segments are worth signing, whether a tumour is benign or malignant, whether a metric is even measuring what it claims to but that sequence doesn't.",
+    "What carries across all of it is the order of operations, not the domain: pin down the question precisely, get the data honest before trusting it, and let the answer stand only as far as the evidence actually reaches. The question itself changes a lot: which rental segments are worth signing, why some patient visits never reached the billing system, whether a tumour is benign or malignant, whether a metric is even measuring what it claims to. That sequence doesn't.",
 
   location: "Dhaka, Bangladesh",
 } as const;
@@ -58,6 +58,11 @@ export const person = {
  * a project README — nothing here is rounded up or estimated.
  */
 export const aboutMarks = [
+  {
+    value: "6,612",
+    label:
+      "EHR encounters reconciled against a billing database in the healthcare RCM case study",
+  },
   {
     value: "98,666",
     label: "orders modelled end-to-end in the Olist Power BI pipeline",
@@ -111,6 +116,20 @@ export type Project = {
 };
 
 export const projects: readonly Project[] = [
+  {
+    id: "rcm",
+    title: "Healthcare Revenue Cycle Data Operations Case Study",
+    kind: "Data Analytics",
+    blurb:
+      "Four revenue-cycle problems for a healthcare billing company. Reconciled 6,612 EHR encounters against the billing database with pandas and a PostgreSQL anti-join, traced Medicare payment gaps through the CMS fee schedule (GPCI, multiple-procedure reduction), and built a 4-tab Retool dashboard on PostgreSQL.",
+    stat: {
+      value: "282 of 6,612",
+      label:
+        "Encounters (4.26%) never imported — an import filter blocked visits carrying non-CPT flag codes, missing 98.6% of the time vs 1.2% for others",
+    },
+    tags: ["Python", "pandas", "PostgreSQL", "SQL", "Retool"],
+    repo: "https://github.com/Abtahi0712/Data-Operations-Case-Study",
+  },
   {
     id: "olist",
     title: "Olist E-Commerce Sales Analytics",
@@ -221,6 +240,7 @@ export const skillGroups = [
       "PostgreSQL",
       "SQL (CTEs, joins, window functions)",
       "Power BI (DAX, DirectQuery)",
+      "Retool",
     ],
   },
   {
@@ -228,14 +248,15 @@ export const skillGroups = [
     items: ["Python (pandas, NumPy, Scikit-learn)", "C / C++ (Basic)"],
   },
   {
-    label: "AI & Data",
+    label: "Machine Learning & AI",
     items: [
-      "Machine Learning",
-      "NLP",
       "PyTorch",
       "TensorFlow",
+      "Hugging Face Transformers",
+      "Deep Learning",
+      "Computer Vision",
+      "NLP",
       "Matplotlib",
-      "Data Processing",
     ],
   },
   {

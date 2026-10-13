@@ -11,11 +11,11 @@ export default function Projects() {
       eyebrow="Selected Work"
       title={
         <>
-          Five projects, each built{" "}
+          Six projects, each built{" "}
           <span className="text-glow-gradient">end to end</span>.
         </>
       }
-      lede="From raw CSV to a dashboard a stakeholder can act on, and from an ultrasound dataset to a model that segments and classifies in a single pass. Every card links to its repository."
+      lede="From raw CSV to a dashboard a stakeholder can act on, from an EHR export reconciled against a billing database, and from an ultrasound dataset to a model that segments and classifies in a single pass. Every card links to its repository."
     >
       <RevealGroup
         as="ul"

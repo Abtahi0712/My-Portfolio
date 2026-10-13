@@ -12,7 +12,7 @@ const siteUrl =
   "https://abtahi-portfolio.vercel.app";
 
 const description =
-  "Portfolio of Abtahi Bin Jahangir Chowdhury — Computer Science graduate and Data Analyst who turns raw, messy data into business-ready insight with PostgreSQL, Python, Power BI and machine learning.";
+  "Portfolio of Abtahi Bin Jahangir Chowdhury — Data Analyst and Machine Learning Engineer who turns raw, messy data into business-ready insight with Python, PostgreSQL, SQL, Power BI, Retool and deep learning.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -30,8 +30,11 @@ export const metadata: Metadata = {
     "Machine Learning Engineer",
     "PostgreSQL",
     "Power BI",
+    "Retool",
     "Python",
     "SQL",
+    "Healthcare Revenue Cycle",
+    "Deep Learning",
     "NLP",
     "BRAC University",
     "Portfolio",
@@ -101,8 +104,12 @@ const personJsonLd = {
     "SQL",
     "PostgreSQL",
     "Power BI",
+    "Retool",
     "Python",
+    "Data Reconciliation",
     "Machine Learning",
+    "Deep Learning",
+    "Computer Vision",
     "Natural Language Processing",
   ],
 };
