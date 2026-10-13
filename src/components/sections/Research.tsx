@@ -12,7 +12,7 @@ export default function Research() {
     <section
       id="research"
       aria-labelledby="research-heading"
-      className="relative scroll-mt-24 py-16 md:py-20 lg:py-24"
+      className="relative -scroll-mt-16 py-16 md:-scroll-mt-20 md:py-20 lg:-scroll-mt-24 lg:py-24"
     >
       <div className="shell">
         <Reveal>

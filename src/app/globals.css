@@ -61,7 +61,9 @@
 
 html {
   scroll-behavior: smooth;
-  /* Anchor targets clear the sticky nav */
+  /* Anchor targets clear the sticky nav. Sections cancel their own top
+     padding with a matching negative scroll-margin (see Section.tsx), so a
+     nav click lands the eyebrow label just below the bar — no dead gap. */
   scroll-padding-top: calc(var(--nav-h) + 1.5rem);
   background-color: var(--color-void);
   /* Never allow a stray transform to create a sideways scrollbar */

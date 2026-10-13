@@ -19,16 +19,20 @@ export default function Contact() {
     <footer
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative scroll-mt-24 overflow-hidden pt-20 md:pt-24 lg:pt-28"
+      className="relative flex min-h-[calc(100lvh-var(--nav-h)+3.5rem)] -scroll-mt-20 flex-col overflow-hidden pt-20 md:min-h-[calc(100lvh-var(--nav-h)+4.5rem)] md:-scroll-mt-24 md:pt-24 lg:min-h-[calc(100lvh-var(--nav-h)+5.5rem)] lg:-scroll-mt-28 lg:pt-28"
     >
+      {/* Last section: the page ends here, so without a minimum height a nav
+          click can't scroll it up under the bar like the others. The min-height
+          is one viewport, minus the nav + 1.5rem anchor offset, plus the top
+          padding the negative scroll-margin cancels. */}
       {/* Footer glow — the page's light field resolving into one last bloom. */}
       <div
         aria-hidden
         className="pointer-events-none absolute -bottom-40 left-1/2 h-[42vmax] w-[82vmax] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse,color-mix(in_oklab,var(--color-violet)_22%,transparent),transparent_66%)] blur-[60px]"
       />
 
-      <div className="shell relative">
-        <Reveal className="mx-auto max-w-3xl text-center">
+      <div className="shell relative flex w-full flex-1 flex-col">
+        <Reveal className="mx-auto mb-20 max-w-3xl text-center">
           <p className="eyebrow inline-flex items-center gap-3">
             <span className="inline-block h-px w-8 bg-magenta" />
             Contact
@@ -90,7 +94,7 @@ export default function Contact() {
           </ul>
         </Reveal>
 
-        <div className="rule-fade mt-20" />
+        <div className="rule-fade mt-auto" />
 
         <div className="flex flex-col items-center justify-between gap-3 py-8 text-center sm:flex-row sm:text-left">
           <p className="font-mono text-[0.7rem] text-lavender-dim">

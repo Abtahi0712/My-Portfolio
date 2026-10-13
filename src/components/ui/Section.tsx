@@ -55,7 +55,10 @@ export function RevealGroup({
       variants={prefersReduced ? staticVariants : staggerVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.12, margin: "0px 0px -6% 0px" }}
+      // "some", not a fraction: a fraction of a tall list (six stacked cards on
+      // a phone) can exceed the viewport height, so the group would never fire
+      // and a nav jump would land on blank space until the user scrolled on.
+      viewport={{ once: true, amount: "some", margin: "0px 0px -6% 0px" }}
     >
       {children}
     </Component>
@@ -110,7 +113,7 @@ export function Section({
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className={`relative scroll-mt-24 py-20 md:py-24 lg:py-28 ${className}`}
+      className={`relative -scroll-mt-20 py-20 md:-scroll-mt-24 md:py-24 lg:-scroll-mt-28 lg:py-28 ${className}`}
     >
       <div className="shell">
         <Reveal className="max-w-3xl">
